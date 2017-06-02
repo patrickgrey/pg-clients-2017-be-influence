@@ -126,12 +126,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .be-text-hero {
   color: white;
-  font-size: 1.1em;
+  font-size: 1.4em;
   width: 90%;
   text-align: center;
   text-shadow: 1px 1px black;
-  width: 100%;
-  margin-top: 0;
+  width: 90%;
+  margin: 0 auto 1rem auto;
   padding-bottom: 0.75rem; }
 
 .be-button--say-hello {
@@ -146,6 +146,13 @@ h1, h2, h3, h4, h5, h6 {
 .be-button--say-hello:hover, .be-button--say-hello:active {
   color: #09f;
   background-color: #fff; }
+
+.be-translations-hide {
+  opacity: 0;
+  transition: opacity 0.5s; }
+
+.be-translations-show {
+  opacity: 1; }
 
 .be-nav-list {
   position: absolute;
@@ -322,6 +329,8 @@ h1, h2, h3, h4, h5, h6 {
     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */ }
   .be-text-hero-container {
     bottom: 7rem; }
+  .be-text-hero {
+    font-size: 1.6em; }
   .be-content-main {
     margin-top: 8rem; }
   .be-box {

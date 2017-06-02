@@ -63,7 +63,7 @@
         
         
         
-        <span id="forkongithub"><a href="#">Join us!</a></span>
+        <span id="forkongithub"><a href="#" data-translation="join">Join us!</a></span>
           
         <!-- <div class="be-join__banner-container">
         
@@ -111,9 +111,10 @@
         
           <div class="be-text-hero-container">
           
-            <h2 class="be-text-hero">Unlocking the <strong>power</strong><br/> of <strong>native</strong> recommendations</h2>
+            <!-- <h2 class="be-text-hero">Unlocking the <strong>power</strong><br/> of <strong>native</strong> recommendations</h2> -->
+            <h2 class="be-text-hero" data-translation="callToAction">Unlocking the <strong>power</strong><br/> of <strong>native</strong> recommendations</h2>
           
-            <a class="be-button be-button--say-hello" href="#be-form-container"><strong>Say hello</strong></a>
+            <a class="be-button be-button--say-hello" href="#be-form-container" data-translation="sayHello"><strong>Say hello</strong></a>
           </div>
           
           <div class="be-page-down--icon">
@@ -122,17 +123,26 @@
             <!-- <div class="be-page-down--icon-2"></div>
             <div class="be-page-down--icon-3"></div>
           </div> -->
-          <nav>
+          <nav id="be-translations" class="be-translations-hide">
             
             <ul class="be-nav-list">
               <li class="be-nav-list--item">
-                <a class="be-language-link" href="#"><span class="be-text-hide">Traduire en français</span><img class="be-language be-language--de" src="images/fr.svg" alt="Traduire en français"></a>
+                <a id="be-tranlsation-button-1" data-flag-current="fr" class="be-language-link" href="#">
+                  <span class="be-text-hide">Traduire en français</span>
+                  <img id="be-image-flag-1" class="be-language" src="images/fr.svg" alt="Traduire en français">
+                </a>
               </li>
               <li class="be-nav-list--item">
-                <a class="be-language-link" href="#"><span class="be-text-hide">Translate auf Deutsch</span><img class="be-language be-language--de" src="images/de.svg" alt="Translate auf Deutsch"></a>
+                <a id="be-tranlsation-button-2" data-flag-current="de" class="be-language-link" href="#">
+                  <span class="be-text-hide">Translate auf Deutsch</span>
+                  <img id="be-image-flag-2" class="be-language" src="images/de.svg" alt="Translate auf Deutsch">
+                </a>
               </li>
               <li class="be-nav-list--item">
-                <a class="be-language-link" href="#"><span class="be-text-hide">Traducirse en español</span><img class="be-language be-language--de" src="images/es.svg" alt="Traducirse en español"></a>
+                <a id="be-tranlsation-button-3" data-flag-current="es" class="be-language-link" href="#">
+                  <span class="be-text-hide">Traducirse en español</span>
+                  <img id="be-image-flag-3" class="be-language" src="images/es.svg" alt="Traducirse en español">
+                </a>
               </li>
             </ul>
             
