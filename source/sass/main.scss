@@ -334,19 +334,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .be-engagement {
-  // display: block;
-  // display: flex;
-  // flex-direction:row;
-  // // flex-flow: row; 
-  // flex-wrap: wrap;
-  // margin: 1em;
-  // width: 90%;
   max-width: 50rem;
   margin: 0 auto;
-  // min-height: 500px;
   padding-bottom: 1rem;
   
 }
+
 
 .be-engagement h3 {
   margin-bottom: 4rem;
@@ -392,82 +385,36 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
+
+
+
+
+
+
+.be-meet-the-team {
+  max-width: 50rem;
+  padding: 1rem;
+  margin: 0 auto;
+}
+
+.be-meet-img {
+  max-width: 180px;
+  border-radius: 50%;
+}
+
+.be-meet-container {
+  text-align: center;
+}
+
+
+
+
+
+
 .be-contact-form {
   width: 100%;
   height: 58rem;
 }
-
-// .be-boxes {
-//   background: url('../images/paint_wall.jpg');
-// }
-
-// .be-boxes-container {
-//   display: flex;
-//   flex-flow: row wrap;
-//   justify-content: space-around;
-// }
-
-// .be-box {
-//   padding: 3rem 1rem 0rem 1rem;
-//   text-align: center;
-//   background-color: #999;
-//   color: white;
-//   font-size: 0.7em;
-//   line-height: 1.2em;
-//   // width: 14rem;
-//   // min-width: 9rem;
-//   min-height: 9rem;
-//   max-width: 10rem;
-//   width: 80%;
-//   height: 80%;
-//   // min-height: 15rem;
-//   // margin-right: 0.5rem;
-//   margin-bottom: 0.5rem;
-//   background-size: cover;
-//   background-position: 50% 50%;
-//   background-repeat: no-repeat;
-//   text-shadow: 1px 1px black;
-//   border-radius: 50%;
-//   overflow: hidden;
-//   vertical-align: middle;
-//   // justify-content: center;
-// }
-
-// .be-box-1 {
-//   background-image: url('../images/stats/socNat1.jpg');
-// }
-
-// .be-box-2 {
-//   // background-image: url('../images/stats/socNat2.jpg');
-// }
-
-// .be-box-3 {
-//   // background-image: url('../images/stats/socNat3.jpg');
-// }
-
-// .be-box-4 {
-//   // background-image: url('../images/stats/socNat4.jpg');
-// }
-
-// .be-box-5 {
-//   background-image: url('../images/stats/socNat5.jpg');
-// }
-
-// .be-box-6 {
-//   // background-image: url('../images/stats/socNat6.jpg');
-// }
-
-// .be-box-7 {
-//   // background-image: url('../images/stats/socNat7.jpg');
-// }
-
-// .be-box-8 {
-//   // background-image: url('../images/stats/socNat8.jpg');
-// }
-
-// .be-box-9 {
-//   background-image: url('../images/stats/socNat9.jpg');
-// }
 
 
 
