@@ -273,9 +273,10 @@ h1, h2, h3, h4, h5, h6 {
 
 
 .be-content-title {
-  width: 80%;
-  margin-left: 10%;
+  width: 100%;
+  // margin-left: 10%;
   text-align: center;
+  font-weight: bolder;
 }
 
 .be-content-main {
@@ -392,28 +393,111 @@ h1, h2, h3, h4, h5, h6 {
 
 
 .be-meet-the-team {
-  max-width: 50rem;
   padding: 1rem;
   margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.be-meet-container {
+  max-width: 15rem;
+  text-align: center;
+  flex-basis: 100%;
+  margin: 1rem 0.5rem;
 }
 
 .be-meet-img {
   max-width: 180px;
   border-radius: 50%;
+  border: 8px solid white;
 }
 
-.be-meet-container {
+.be-meet-you {
+  width: 160px;
+  height: 160px;
+  font-size: 3em;
+  background-color: #eee;
+  color: #999;
+  
+}
+
+.be-meet-card {
+  // max-width: 15rem;
+  font-size: 1em;
+  padding: 4rem 0.5rem 0.5rem 0.5rem;
+  background: #eee;
+  border-radius: 10px;
+  margin-top: -5rem;
+  box-shadow: 0 5px 5px -5px black;
+}
+
+.be-meet-card blockquote {
+  margin: 0;
+  padding: 0;
+}
+
+.be-meet-card h4{
+  font-weight: bolder;
+}
+
+.be-meet-position {
+  font-style: italic;
+}
+
+
+.be-social-media {
+  padding: 0;
+  width: calc(100% - 2rem);
+  max-width: 20rem;
+  margin: 0 auto 1rem auto;
+}
+
+
+.be-social-media li{
+  list-style: none;
+  display: inline-block;
+  width: 49%;
   text-align: center;
+  // float: left;
+}
+
+.be-social-media-link {
+  width: 5rem;
+  height: 5rem;
+  // border: 1px solid #999;
+  // border-radius: 50%;
+}
+
+.be-social-media-icon {
+  width: 5rem;
+  height: 5rem;
+}
+
+.be-social-media-linkin {
+  fill: #0274b3;
+}
+
+
+.be-social-media-facebook {
+  fill: #3b5997;
 }
 
 
 
-
-
+// .be-contact-form-contianer {
+//   width: 90%;
+//   // height: 58rem;
+// }
 
 .be-contact-form {
-  width: 100%;
-  height: 58rem;
+  display: block;
+  width: calc(100% - 2rem);
+  max-width: 40rem;
+  margin: 0 auto;
+  min-height: 62rem;
+  // overflow: hidden;
 }
 
 
@@ -570,6 +654,14 @@ h1, h2, h3, h4, h5, h6 {
   
   .be-engagement-stat-container {
     font-size: 0.7em;
+  }
+  
+  .be-meet-card {
+    font-size: 0.8em;
+  }
+  
+  .be-contact-form {
+    min-height: 49rem;
   }
   
 }

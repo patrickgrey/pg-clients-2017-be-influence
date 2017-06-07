@@ -138,9 +138,9 @@
     
     getTranslations();
     
-    // particlesJS.load('euro-map', 'scripts/vendors/particlesjs-config.json', function() {
+    particlesJS.load('euro-map', 'scripts/vendors/particlesjs-config.json', function() {
       
-    // });
+    });
     
     // window.addEventListener('load', function () {
     //   particlesJS.load('euro-map', 'scripts/vendors/particlesjs-config.json', function() {
