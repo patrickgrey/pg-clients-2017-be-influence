@@ -99,8 +99,16 @@ h1, h2, h3, h4, h5, h6 {
   -o-transform: rotate(45deg);
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8); }
 
+.be-header-container {
+  display: relative;
+  width: 100%;
+  max-width: 50rem;
+  margin: 0 auto; }
+
 .be-header {
   height: 100vh;
+  width: 100%;
+  position: relative;
   background-image: url("../images/beInfluence-h-600.jpg");
   background-size: cover;
   background-position: top center;
@@ -286,12 +294,14 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center; }
+  justify-content: center;
+  width: 100%;
+  max-width: 50rem; }
 
 .be-meet-container {
   max-width: 15rem;
   text-align: center;
-  flex-basis: 100%;
+  flex-basis: 40%;
   margin: 1rem 0.5rem; }
 
 .be-meet-img {
@@ -403,7 +413,7 @@ h1, h2, h3, h4, h5, h6 {
   .be-text-hero {
     font-size: 1.8em; }
   .be-content-main {
-    margin-top: 8rem; }
+    margin-top: 5rem; }
   .be-engagement-stat-container {
     font-size: 0.7em; }
   .be-meet-card {

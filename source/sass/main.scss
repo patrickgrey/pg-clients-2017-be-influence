@@ -44,12 +44,16 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.3em;
 }
 
+
 .be-header__logo {
   max-width: 190px;
   width: 40%;
   position: absolute;
   top: 0.7rem;
   left: $mobile-sides-margin;
+  
+  // margin-top: 0.7rem;
+  // margin-left: $mobile-sides-margin;
 }
 
 .be-header__logo--circle {
@@ -103,7 +107,9 @@ h1, h2, h3, h4, h5, h6 {
 
 #forkongithub {
   position:absolute;
+  // position:relative;
   display:block;
+  // margin-left: calc(100% - 200px);
   top:0;
   right:0;
   width:200px;
@@ -125,9 +131,18 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow:4px 4px 10px rgba(0,0,0,0.8);
 }
 
+.be-header-container {
+  display: relative;
+  width: 100%;
+  max-width: 50rem;
+  margin: 0 auto;
+}
+
 
 .be-header {
   height: 100vh;
+  width: 100%;
+  position: relative;
   // background-color: #1e252b;
   // background-color: red;
   background-image: url('../images/beInfluence-h-600.jpg');
@@ -399,12 +414,14 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  width: 100%;
+  max-width: 50rem;
 }
 
 .be-meet-container {
   max-width: 15rem;
   text-align: center;
-  flex-basis: 100%;
+  flex-basis: 40%;
   margin: 1rem 0.5rem;
 }
 
@@ -645,10 +662,11 @@ h1, h2, h3, h4, h5, h6 {
   .be-text-hero {
     // font-size: 1.6em;
     font-size: 1.8em;
+    // width: 60%;
   }
   
   .be-content-main {
-    margin-top: 8rem;
+    margin-top: 5rem;
   }
   
   
