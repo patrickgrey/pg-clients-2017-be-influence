@@ -289,17 +289,15 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 0; }
 
 .be-meet-the-team {
-  padding: 1rem;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  width: 100%;
+  width: calc(100% - 2rem);
   max-width: 50rem; }
 
 .be-meet-container {
-  max-width: 15rem;
   text-align: center;
   flex-basis: 40%;
   margin: 1rem 0.5rem; }
@@ -317,8 +315,9 @@ h1, h2, h3, h4, h5, h6 {
   color: #999; }
 
 .be-meet-card {
+  min-width: 15rem;
   font-size: 1em;
-  padding: 4rem 0.5rem 0.5rem 0.5rem;
+  padding: 4rem 1rem 1rem 0.5rem;
   background: #eee;
   border-radius: 10px;
   margin-top: -5rem;
