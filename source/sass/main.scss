@@ -134,7 +134,7 @@ h1, h2, h3, h4, h5, h6 {
 .be-header-container {
   display: relative;
   width: 100%;
-  max-width: 50rem;
+  // max-width: 50rem;
   margin: 0 auto;
 }
 
@@ -645,15 +645,15 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 150%;
   }
   
-  // need to make it after.
-  // .be-header-container::before {
-  //   content: '';
-  //   display: block;
-  //   position: absolute;
-  //   width: 100%;
-  //   height: 100%;
-  //   top: 0;
-  //   background-color: grey;
+  // // need to make it after.
+  // .be-header-container-bg {
+  //   // background-color: #eee;
+  //   // background: url('../images/beInfluence-h-1200-bg.jpg');
+  //   background-size: contain;
+  // // background-position: top ($mobile-join-height * 2) right;
+  //   background-position: top center;
+  //   // background-repeat: no-repeat;
+     
   // }
   
   .be-header {

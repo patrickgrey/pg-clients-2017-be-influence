@@ -136,7 +136,7 @@
   // pageModule.init(); code at the bottom.
   module.init = function () {
     
-    getTranslations();
+    // getTranslations();
     
     particlesJS.load('euro-map', 'scripts/vendors/particlesjs-config.json', function() {
       
