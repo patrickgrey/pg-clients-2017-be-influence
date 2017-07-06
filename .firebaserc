@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "bewebsite-3d75c"
+    "default": "beinfluence-dev",
+    "staging": "beinfluence-dev",
+    "production": "beinfluence-91364"
   }
 }
