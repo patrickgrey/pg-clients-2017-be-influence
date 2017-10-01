@@ -83,6 +83,11 @@ gulp.task('fonts', () => {
     .pipe($.if(dev, gulp.dest('.tmp/fonts'), gulp.dest('docs/fonts')));
 });
 
+gulp.task('particleConfig', () => {
+  return gulp.src('app/scripts/vendors/particlesjs-config.json')
+    .pipe(gulp.dest('docs/scripts/vendors/'));
+});
+
 gulp.task('extras', () => {
   return gulp.src([
     'app/*',
@@ -165,7 +170,7 @@ gulp.task('wiredep', () => {
     .pipe(gulp.dest('app'));
 });
 
-gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], () => {
+gulp.task('build', ['lint', 'html', 'images', 'fonts', 'particleConfig', 'extras'], () => {
   return gulp.src('docs/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
