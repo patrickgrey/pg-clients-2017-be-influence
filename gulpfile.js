@@ -1,302 +1,177 @@
-'use strict';
-
+// generated on 2017-10-01 using generator-webapp 3.0.1
 const gulp = require('gulp');
-const fs = require('fs');
-const path = require('path');
-const browserSync = require('browser-sync');
-const inject = require('gulp-inject-string');
+const gulpLoadPlugins = require('gulp-load-plugins');
+const browserSync = require('browser-sync').create();
 const del = require('del');
 const wiredep = require('wiredep').stream;
-const debug = require('gulp-debug');
-const cache = require('gulp-cached');
-const size = require('gulp-size');
-const imagemin = require('gulp-imagemin');
-const sourcemaps = require('gulp-sourcemaps');
-const uglify = require('gulp-uglify');
-const cssnano = require('gulp-cssnano');
-const rename = require("gulp-rename");
-const htmlReplace = require('gulp-html-replace');
-const concat = require('gulp-concat');
-const sass = require('gulp-sass');
+const runSequence = require('run-sequence');
 
+const $ = gulpLoadPlugins();
+const reload = browserSync.reload;
 
-///////////////////////////////
-// UTILITIES
-//////////////////////////////
+let dev = true;
 
+gulp.task('styles', () => {
+  return gulp.src('app/styles/*.scss')
+    .pipe($.plumber())
+    .pipe($.if(dev, $.sourcemaps.init()))
+    .pipe($.sass.sync({
+      outputStyle: 'expanded',
+      precision: 10,
+      includePaths: ['.']
+    }).on('error', $.sass.logError))
+    .pipe($.autoprefixer({browsers: ['> 1%', 'last 2 versions', 'Firefox ESR']}))
+    .pipe($.if(dev, $.sourcemaps.write()))
+    .pipe(gulp.dest('.tmp/styles'))
+    .pipe(reload({stream: true}));
+});
 
-// For todays date;
-Date.prototype.today = function () {
-    return ((this.getDate() < 10)?"0":"") + this.getDate() +"/"+(((this.getMonth()+1) < 10)?"0":"") + (this.getMonth()+1) +"/"+ this.getFullYear();
+gulp.task('scripts', () => {
+  return gulp.src('app/scripts/**/*.js')
+    .pipe($.plumber())
+    .pipe($.if(dev, $.sourcemaps.init()))
+    .pipe($.babel())
+    .pipe($.if(dev, $.sourcemaps.write('.')))
+    .pipe(gulp.dest('.tmp/scripts'))
+    .pipe(reload({stream: true}));
+});
+
+function lint(files) {
+  return gulp.src(files)
+    .pipe($.eslint({ fix: true }))
+    .pipe(reload({stream: true, once: true}))
+    .pipe($.eslint.format())
+    .pipe($.if(!browserSync.active, $.eslint.failAfterError()));
 }
 
-// For the time now
-Date.prototype.timeNow = function () {
-     return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
-}
-
-
-gulp.task('clean', del.bind(null, ['.tmp', 'dist', 'docs']));
-gulp.task('clean-css', del.bind(null, ['app/styles/main.css']));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-///////////////////////////////
-// SERVE
-//////////////////////////////
-
-
-// process JS files and return the stream.
-gulp.task('js', function () {
-    return gulp.src('app/**/scripts/**/*.js')
-        .pipe(cache('scripts'))
-        .pipe(debug({title: 'unicorn js:'}));
+gulp.task('lint', () => {
+  return lint('app/scripts/**/*.js')
+    .pipe(gulp.dest('app/scripts'));
+});
+gulp.task('lint:test', () => {
+  return lint('test/spec/**/*.js')
+    .pipe(gulp.dest('test/spec'));
 });
 
-gulp.task('sass', function () {
-  return gulp.src('source/**/sass/**/*.scss')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(debug({title: 'unicorn sass:'}))
-    .pipe(rename({dirname: ''}))
-    .pipe(gulp.dest('app/styles/'));
+gulp.task('html', ['styles', 'scripts'], () => {
+  return gulp.src('app/*.html')
+    .pipe($.useref({searchPath: ['.tmp', 'app', '.']}))
+    .pipe($.if(/\.js$/, $.uglify({compress: {drop_console: true}})))
+    .pipe($.if(/\.css$/, $.cssnano({safe: true, autoprefixer: false})))
+    .pipe($.if(/\.html$/, $.htmlmin({
+      collapseWhitespace: true,
+      minifyCSS: true,
+      minifyJS: {compress: {drop_console: true}},
+      processConditionalComments: true,
+      removeComments: true,
+      removeEmptyAttributes: true,
+      removeScriptTypeAttributes: true,
+      removeStyleLinkTypeAttributes: true
+    })))
+    .pipe(gulp.dest('docs'));
 });
 
-
-// process CSS files and return the stream.
-gulp.task('css', ['sass'], function () {
-    return gulp.src('app/**/styles/**/*.css')
-        .pipe(cache('styles'))
-        .pipe(debug({title: 'unicorn css:'}))
-        .pipe(gulp.dest('.tmp/styles')) // Need to call gulp.dest() before stream will work.
-        .pipe(browserSync.stream());
+gulp.task('images', () => {
+  return gulp.src('app/images/**/*')
+    .pipe($.cache($.imagemin()))
+    .pipe(gulp.dest('docs/images'));
 });
 
-
-// cannot reload page on start up so need to watch for changes in separate function.
-gulp.task('js-watch', ['js'], function (done) {
-    browserSync.reload();
-    done();
+gulp.task('fonts', () => {
+  return gulp.src(require('main-bower-files')('**/*.{eot,svg,ttf,woff,woff2}', function (err) {})
+    .concat('app/fonts/**/*'))
+    .pipe($.if(dev, gulp.dest('.tmp/fonts'), gulp.dest('docs/fonts')));
 });
 
+gulp.task('extras', () => {
+  return gulp.src([
+    'app/*',
+    '!app/*.html'
+  ], {
+    dot: true
+  }).pipe(gulp.dest('docs'));
+});
+
+gulp.task('clean', del.bind(null, ['.tmp', 'docs']));
+
+gulp.task('serve', () => {
+  runSequence(['clean', 'wiredep'], ['styles', 'scripts', 'fonts'], () => {
+    browserSync.init({
+      notify: false,
+      port: 9000,
+      server: {
+        baseDir: ['.tmp', 'app'],
+        routes: {
+          '/bower_components': 'bower_components'
+        }
+      }
+    });
+
+    gulp.watch([
+      'app/*.html',
+      'app/images/**/*',
+      '.tmp/fonts/**/*'
+    ]).on('change', reload);
+
+    gulp.watch('app/styles/**/*.scss', ['styles']);
+    gulp.watch('app/scripts/**/*.js', ['scripts']);
+    gulp.watch('app/fonts/**/*', ['fonts']);
+    gulp.watch('bower.json', ['wiredep', 'fonts']);
+  });
+});
+
+gulp.task('serve:docs', ['default'], () => {
+  browserSync.init({
+    notify: false,
+    port: 9000,
+    server: {
+      baseDir: ['docs']
+    }
+  });
+});
+
+gulp.task('serve:test', ['scripts'], () => {
+  browserSync.init({
+    notify: false,
+    port: 9000,
+    ui: false,
+    server: {
+      baseDir: 'test',
+      routes: {
+        '/scripts': '.tmp/scripts',
+        '/bower_components': 'bower_components'
+      }
+    }
+  });
+
+  gulp.watch('app/scripts/**/*.js', ['scripts']);
+  gulp.watch(['test/spec/**/*.js', 'test/index.html']).on('change', reload);
+  gulp.watch('test/spec/**/*.js', ['lint:test']);
+});
 
 // inject bower components
 gulp.task('wiredep', () => {
-  gulp.src('app/**/*.html')
+  gulp.src('app/styles/*.scss')
+    .pipe($.filter(file => file.stat && file.stat.size))
+    .pipe(wiredep({
+      ignorePath: /^(\.\.\/)+/
+    }))
+    .pipe(gulp.dest('app/styles'));
+
+  gulp.src('app/*.html')
     .pipe(wiredep({
       ignorePath: /^(\.\.\/)*\.\./
     }))
     .pipe(gulp.dest('app'));
 });
 
-// use default task to launch Browsersync and watch JS files
-gulp.task('serve', ['js', 'css'], function () {
-  
-  browserSync.init({
-      notify: false,
-      port: 9000,
-      server: {
-        baseDir: 'app',
-        routes: {
-          '/bower_components': 'bower_components'
-        }
-      }
+gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], () => {
+  return gulp.src('docs/**/*').pipe($.size({title: 'build', gzip: true}));
+});
+
+gulp.task('default', () => {
+  return new Promise(resolve => {
+    dev = false;
+    runSequence(['clean', 'wiredep'], 'build', resolve);
   });
-
-  gulp.watch('app/**/*.html', ['js-watch']);
-  gulp.watch('app/**/scripts/**/*.js', ['js-watch']);
-  gulp.watch('source/**/sass/**/*.scss', ['css']);
-  gulp.watch('bower.json', ['wiredep']);
-});
-
-
-
-
-
-
-
-
-
-///////////////////////////////
-// BUILD COMPLEX TEMPLATE
-///////////////////////////////
-
-// What about build order?
-// Sort array before mapping?
-
-var scriptsPath = 'app';
-
-function getFolders(dir) {
-    return fs.readdirSync(dir)
-      .filter(function(file) {
-        return fs.statSync(path.join(dir, file)).isDirectory();
-      });
-}
-
-
-gulp.task('build', ['clean'], () => {
-  gulp.start('processBuild');
-});
-
-
-// gulp.task('processBuild', ['buildMinify', 'buildImages', 'buildCopyRest'], () => {
-gulp.task('processBuild', ['buildScripts', 'buildStyles', 'buildHtml', 'buildImages', 'buildCopyRest'], () => {
-  return gulp.src('docs/**/*').pipe(size({title: 'build', gzip: true}));
-});
-
-
-gulp.task('buildScripts', function() {
-   var folders = getFolders(scriptsPath);
-
-   var tasks = folders.map(function(folder) {
-      return gulp.src([
-                        path.join(scriptsPath, folder, '/**/*.js'),
-                        '!app/index.html'
-                        ])
-        .pipe(debug({title: 'unicorn js:'}))
-        .pipe(sourcemaps.init())
-        .pipe(concat('dist.js'))
-        .pipe(uglify())
-        .pipe(rename('dist.min.js'))
-        .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('docs/scripts'));
-   });
-
-   return tasks;
-});
-
-gulp.task('buildStyles', function() {
-   var folders = getFolders(scriptsPath);
-
-   var tasks = folders.map(function(folder) {
-      return gulp.src([
-                        path.join(scriptsPath, folder, '/**/*.css'),
-                        '!app/index.html'
-                        ])
-        .pipe(debug({title: 'unicorn css:'}))
-        .pipe(sourcemaps.init())
-        .pipe(concat('dist.css'))
-        .pipe(cssnano())
-        .pipe(rename('dist.min.css')) 
-        .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('docs/styles'));
-   });
-
-   return tasks;
-});
-
-
-
-gulp.task('buildHtml', () => {
-  return gulp.src(
-                  [
-                    'app/**/*.html',
-                    // '!app/index.html',
-                    '!app/{clix,clix/**}',
-                    '!app/{ilp,ilp/**}',
-                    '!app/{MOOCDirectAccess,MOOCDirectAccess/**}'
-                  ]
-                )
-    .pipe(debug({title: 'unicorn html:'}))
-    .pipe(htmlReplace({
-        'css': 'styles/dist.min.css',
-        'js': 'scripts/dist.min.js'
-    }))
-    .pipe(inject.replace('<!-- Last build date -->', '<!-- Last Build: ' + new Date().today() + ' @' + new Date().timeNow() + ' -->'))
-    .pipe(gulp.dest('docs'));
-});
-
-
-gulp.task('buildImages', () => {
-  return gulp.src([
-                    'app/**/images/**/*',
-                    '!app/{clix,clix/**}',
-                    '!app/{ilp,ilp/**}',
-                    '!app/{MOOCDirectAccess,MOOCDirectAccess/**}'
-                  ])
-    .pipe(debug({title: 'unicorn images:'}))
-    // .pipe(imagemin({
-    //                             progressive: true,
-    //                             interlaced: true,
-    //                             // don't remove IDs from SVGs, they are often used
-    //                             // as hooks for embedding and styling
-    //                             svgoPlugins: [{cleanupIDs: false}]
-    //                           }))
-    .pipe(gulp.dest('docs'));
-});
-
-
-gulp.task('buildCopyRest', () => {
-  return gulp.src([
-    // 'app/*',
-    'app/**/*.*',
-    '!app/**/*.html',
-    //'!app/**/*.js',
-    //'!app/**/*.css',
-    '!app/**/images/**/*'
-  ], {
-    dot: true
-  })
-  .pipe(debug({title: 'unicorn buildCopyRest:'}))
-  .pipe(gulp.dest('docs'));
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-///////////////////////////////
-// SERVE DIST
-///////////////////////////////
-
-
-
-gulp.task('serve:dist', function () {
-  
-  browserSync.init({
-      notify: false,
-      port: 9000,
-      server: {
-        baseDir: 'docs',
-        routes: {
-          '/clix': 'app/clix'
-        }
-      }
-  });
-  
-});
-
-
-
-
-
-
-
-
-
-///////////////////////////////
-// DEFAULT
-///////////////////////////////
-
-
-gulp.task('default', ['clean'], () => {
-  gulp.start('build');
 });

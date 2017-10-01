@@ -1,24 +1,11 @@
-<!DOCTYPE html>
-<html lang="en-gb">
+<!doctype html>
+<html lang="">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Be Influence</title>
-    
 
-    <!-- bower:css -->
-    <!-- endbower -->
-    
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
-    
-    <!-- build:css -->
-    <link rel="stylesheet" href="styles/vendor/normalize.css">
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
-    
-    
-    
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/favicon/apple-touch-icon-57x57.png" />
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/favicon/apple-touch-icon-114x114.png" />
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/favicon/apple-touch-icon-72x72.png" />
@@ -39,11 +26,21 @@
     <meta name="msapplication-square150x150logo" content="images/favicon/mstile-150x150.png" />
     <meta name="msapplication-wide310x150logo" content="images/favicon/mstile-310x150.png" />
     <meta name="msapplication-square310x310logo" content="images/favicon/mstile-310x310.png" />
+
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
     
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/vendor/normalize.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
     
   </head>
   <body>
-    
     
     <div class="be-container">
     
@@ -405,18 +402,7 @@
       
     </div>  <!-- be-container END -->
     
-    
-    
-    <!-- bower:js -->
-    <!-- endbower -->
-    
-    
-    <script src="scripts/vendors/particles.min.js"></script>
-    <!-- build:js -->
-    <script src="scripts/main.js"></script>
-    <!-- endbuild -->
-    
-    <!-- Add Google analytics -->
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -425,8 +411,16 @@
 
       ga('create', 'UA-101946425-1', 'auto');
       ga('send', 'pageview');
-
     </script>
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <!-- endbower -->
+    <!-- endbuild -->
     
+    <!-- build:js scripts/main.js -->
+    <script src="scripts/vendors/particles.js"></script>
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
   </body>
 </html>
