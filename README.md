@@ -1,4 +1,4 @@
-# _template-complex
+# Be Influence Source files
 Workspace template for senior developer doing complex webpages.
 ##Installation
 You will require node, npm, bower and gulp installed on your machine to run this template.
@@ -7,8 +7,6 @@ You will require node, npm, bower and gulp installed on your machine to run this
   - In your project run `npm install` then `bower install`
   - run `gulp serve` to preview and live reload your work in the browser.
   - run `gulp` to create production ready files in the dist folder.
-  - run `gulp serve:dist` to check the production files in the browser.
-  - run `gulp template` to create the simple template in the dist folder.
-  - run `gulp serve:template` to check the simple template production files in the browser.
-  
-  The simple template files should be copied into the EUROCONTROL-IANS/_template-simple repository.
+  - run `gulp serve:docs` to check the production files in the browser.
+  - run `firebase use staging` and then `firebase deploy` to upload the docs folder to the dev server.
+  - run `firebase use production` and then `firebase deploy` to upload the docs folder to the live server.
